@@ -16,6 +16,8 @@ class BruteForceMinimizer:
         h = (self.b - self.a) / n
         
         current_x = self.a
+        self.min_x = current_x
+        self.min_y = self.func(current_x)
         
         for i in range(n + 1):
             y = self.func(current_x)

@@ -15,31 +15,34 @@ def main():
     func_exam = ObjectiveFunctionExam()
 
     a = 0.5
-    b = 4
-    eps = 0.5
-    n = 7
-    delta = 0.125
+    b = 4.0
+    eps = 0.01  # Increased precision
 
     golden = GoldenSectionSearch(
         func=func_exam,
-        a=0.0,
-        b=2.0,
-        epsilon=0.5
+        a=a,
+        b=b,
+        epsilon=eps
     )
 
     dichotomous = DichotomousSearch(
         func=func_exam, 
-        a=0.0, 
-        b=2.0, 
-        epsilon=0.5, 
-        delta=0.1
+        a=a, 
+        b=b, 
+        epsilon=eps, 
+        delta=eps/4
     )
 
     brute_force = BruteForceMinimizer(func_exam, a, b, eps)
 
-    min_x, min_y = golden.search()
+    # print("Running Golden Section Search...")
+    # min_x, min_y = golden.search()
+    
+    # print("Running Dichotomous Search...")
     # min_x, min_y = dichotomous.search()
-    # min_x, min_y = brute_force.find_minimum()
+    
+    print("Running Brute Force Search...")
+    min_x, min_y = brute_force.find_minimum()
 
 
     analytical_x = calculate_analytical_minimum()
@@ -69,4 +72,5 @@ def calculate_analytical_minimum():
     
     return valid_roots[0] if valid_roots else real_roots[0]
 
-main()
+if __name__ == "__main__":
+    main()
