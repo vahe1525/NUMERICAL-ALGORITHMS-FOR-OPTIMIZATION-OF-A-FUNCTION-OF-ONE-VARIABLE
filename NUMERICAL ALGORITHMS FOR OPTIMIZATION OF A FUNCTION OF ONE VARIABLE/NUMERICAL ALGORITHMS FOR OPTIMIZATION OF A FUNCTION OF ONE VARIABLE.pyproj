@@ -21,9 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Brute force function minimazing.py" />
-    <Compile Include="Golden Section.py" />
-    <Compile Include="Method of Dichotomy.py" />
+    <Compile Include="Brute_force_function_minimazing.py" />
+    <Compile Include="Golden_Section.py" />
+    <Compile Include="Method_of_Dichotomy.py" />
     <Compile Include="NUMERICAL_ALGORITHMS_FOR_OPTIMIZATION_OF_A_FUNCTION_OF_ONE_VARIABLE.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
