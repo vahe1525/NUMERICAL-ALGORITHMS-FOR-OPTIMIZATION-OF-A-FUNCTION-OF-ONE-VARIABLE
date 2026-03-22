@@ -1,4 +1,6 @@
 ﻿import sympy as sp
+import matplotlib.pyplot as plt
+import numpy as np
 
 class ObjectiveFunction:
     def __call__(self, x):
@@ -10,6 +12,7 @@ class BruteForceMinimizer:
         self.a = a
         self.b = b
         self.eps = eps
+        self.history = [] # Hook 1: History list
       
     def find_minimum(self):
         n = int((self.b - self.a) / self.eps)
@@ -21,6 +24,7 @@ class BruteForceMinimizer:
         
         for i in range(n + 1):
             y = self.func(current_x)
+            self.history.append(current_x) # Hook 2: Capture point
             
             if y < self.min_y:
                 self.min_y = y
@@ -29,6 +33,24 @@ class BruteForceMinimizer:
             current_x += h
             
         return self.min_x, self.min_y
+
+def plot_result(func, a, b, history, min_x, min_y, title):
+    x_vals = np.linspace(a, b, 100)
+    y_vals = [func(x) for x in x_vals]
+    plt.plot(x_vals, y_vals, label='f(x)', color='black', alpha=0.5)
+    
+    # Plot steps
+    hx = history
+    hy = [func(x) for x in hx]
+    plt.scatter(hx, hy, color='red', s=10, label='Algorithm Steps')
+    plt.plot(hx, hy, color='red', alpha=0.2)
+    
+    # Mark minimum
+    plt.scatter(min_x, min_y, color='blue', marker='x', s=100, label='Found Minimum')
+    
+    plt.title(title)
+    plt.legend()
+    plt.show()
 
 def calculate_analytical_minimum():
     x = sp.Symbol('x')
@@ -44,6 +66,8 @@ def main():
     brute_force = BruteForceMinimizer(objective, a, b, eps)
     
     min_x, min_y = brute_force.find_minimum()
+    
+    plot_result(objective, a, b, brute_force.history, min_x, min_y, "Brute Force Minimization")
     
     analytical_x = calculate_analytical_minimum()
     loss = abs(min_x - analytical_x)
